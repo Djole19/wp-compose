@@ -9,6 +9,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/my.cnf
     networks:
       - FitFusionGym-network
     healthcheck:
@@ -23,8 +24,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'       # polovina CPU jezgra
-          memory: 500M 
+          cpus: '0.25'       # polovina CPU jezgra
+          memory: 200M 
 
   wordpress:
     container_name: FitFusionGym-sajt
@@ -51,8 +52,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'      
-          memory: 500M 
+          cpus: '0.7'      
+          memory: 700M 
   phpmyadmin:
     container_name: FitFusionGym-phpmyadmin
     depends_on:
