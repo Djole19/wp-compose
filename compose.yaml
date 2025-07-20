@@ -25,7 +25,7 @@ services:
       resources:
         limits:
           cpus: '0.25'       # polovina CPU jezgra
-          memory: 300M 
+          memory: 250M 
 
   wordpress:
     container_name: FitFusionGym-sajt
@@ -78,7 +78,7 @@ services:
       resources:
         limits:
           cpus: '0.05'     
-          memory: 50M
+          memory: 100M
 
 volumes:
   db-data:
