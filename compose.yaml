@@ -20,6 +20,11 @@ services:
       options:
         max-size: "8m"
         max-file: "2"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'       # polovina CPU jezgra
+          memory: 512M 
 
   wordpress:
     container_name: FitFusionGym-sajt
@@ -43,6 +48,11 @@ services:
       options:
         max-size: "8m"
         max-file: "2"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'      
+          memory: 512M 
   phpmyadmin:
     container_name: FitFusionGym-phpmyadmin
     depends_on:
@@ -63,6 +73,11 @@ services:
       options:
         max-size: "8m"
         max-file: "2"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'     
+          memory: 256M
 
 volumes:
   db-data:
