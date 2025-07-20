@@ -1,0 +1,73 @@
+services:
+  database:
+    container_name: FitFusionGym-baza
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file: database.env
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - FitFusionGym-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 55s
+      timeout: 35s
+      retries: 7
+    logging:
+      options:
+        max-size: "8m"
+        max-file: "2"
+
+  wordpress:
+    container_name: FitFusionGym-sajt
+    depends_on:
+      - database
+    image: wordpress
+    ports:
+      - 8080:80
+    env_file: wordpress.env
+    restart: always
+    volumes:
+      - ./wordpress:/var/www/html
+    networks:
+      - FitFusionGym-network
+    healthcheck:
+      test: [ "CMD", "curl -f http://localhost:8081 || exit 1" ]
+      interval: 55s
+      timeout: 35s
+      retries: 7
+    logging:
+      options:
+        max-size: "8m"
+        max-file: "2"
+  phpmyadmin:
+    container_name: FitFusionGym-phpmyadmin
+    depends_on:
+      - database
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8081:80
+    env_file: phpmyadmin.env
+    restart: always
+    networks:
+      - FitFusionGym-network
+    healthcheck:
+      test: [ "CMD", "curl -f http://localhost || exit 1" ]
+      interval: 55s
+      timeout: 35s
+      retries: 7
+    logging:
+      options:
+        max-size: "8m"
+        max-file: "2"
+
+volumes:
+  db-data:
+
+
+networks:
+  FitFusionGym-network:
+    driver: bridge
