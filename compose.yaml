@@ -52,7 +52,7 @@ services:
       resources:
         limits:
           cpus: '0.4'      
-          memory: 400M 
+          memory: 500M 
   phpmyadmin:
     container_name: FitFusionGym-phpmyadmin
     depends_on:
@@ -77,7 +77,7 @@ services:
       resources:
         limits:
           cpus: '0.05'     
-          memory: 30M
+          memory: 50M
 
 volumes:
   db-data:
